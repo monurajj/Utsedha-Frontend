@@ -1,0 +1,236 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { Download, ShieldOff, Clock3, HardHat } from "lucide-react";
+import { contact } from "@/lib/data/specs";
+
+const benefits = [
+  {
+    icon: ShieldOff,
+    label: "No scaffolding, no fall risk",
+  },
+  {
+    icon: HardHat,
+    label: "Less site disruption",
+  },
+  {
+    icon: Clock3,
+    label: "Runs as long as the job needs",
+  },
+];
+
+type FormState = {
+  name: string;
+  company: string;
+  projectType: string;
+  message: string;
+};
+
+const initial: FormState = {
+  name: "",
+  company: "",
+  projectType: "Commercial high-rise",
+  message: "",
+};
+
+type ContactSectionProps = {
+  showIntro?: boolean;
+};
+
+export function ContactSection({ showIntro = true }: ContactSectionProps) {
+  const [form, setForm] = useState<FormState>(initial);
+  const [submitted, setSubmitted] = useState(false);
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const subject = encodeURIComponent(
+      `UUPL facade painting quote — ${form.projectType} — ${form.company || form.name}`,
+    );
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nCompany: ${form.company}\nBuilding / project type: ${form.projectType}\n\n${form.message}`,
+    );
+
+    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+  };
+
+  return (
+    <section className="px-5 py-16 md:px-8 md:py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="rounded-sm border border-signal-red/30 bg-gradient-to-br from-panel-slate via-panel-slate to-void-navy p-8 md:p-12">
+          {showIntro && (
+            <>
+              <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
+                Contact
+              </p>
+              <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight text-fog-white md:text-5xl">
+                Reduce your paint time and cost with Utsedha.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base text-muted-steel md:text-lg">
+                Tell us about your building, elevation, timeline, and budget.
+                We&apos;ll come back with how our painting crew fits the job —
+                not a drone sales pitch.
+              </p>
+            </>
+          )}
+
+          <ul className={`${showIntro ? "mt-8" : ""} flex flex-wrap gap-3`}>
+            {benefits.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-void-navy/50 px-3 py-2 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-fog-white"
+              >
+                <Icon size={14} className="text-telemetry-cyan" aria-hidden />
+                {label}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+            <div className="space-y-4">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-steel">
+                Direct line
+              </p>
+              <a
+                href={`mailto:${contact.email}`}
+                className="block text-lg text-fog-white transition-colors hover:text-telemetry-cyan"
+              >
+                {contact.email}
+              </a>
+              <a
+                href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                className="block text-lg text-fog-white transition-colors hover:text-telemetry-cyan"
+              >
+                {contact.phone}
+              </a>
+              <a
+                href="#"
+                className="mt-6 inline-flex items-center gap-2 border-b border-white/20 pb-1 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-muted-steel transition-colors hover:border-telemetry-cyan hover:text-telemetry-cyan"
+                onClick={(e) => e.preventDefault()}
+                aria-disabled
+                title="Service overview PDF coming soon"
+              >
+                <Download size={14} aria-hidden />
+                Download the service overview
+                <span className="text-warning-amber">(soon)</span>
+              </a>
+              <p className="pt-4 text-sm text-muted-steel">
+                Quote form is frontend-only for this phase — submit opens a
+                prefilled email draft. No backend submission yet.
+              </p>
+            </div>
+
+            {submitted ? (
+              <div
+                className="flex flex-col justify-center rounded-sm border border-telemetry-cyan/30 bg-void-navy/60 p-8"
+                role="status"
+              >
+                <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-telemetry-cyan">
+                  Request received
+                </p>
+                <p className="mt-3 font-display text-2xl font-semibold text-fog-white">
+                  Your email draft should be open.
+                </p>
+                <p className="mt-3 text-sm text-muted-steel">
+                  If nothing opened, write us directly at{" "}
+                  <a
+                    className="text-telemetry-cyan underline-offset-2 hover:underline"
+                    href={`mailto:${contact.email}`}
+                  >
+                    {contact.email}
+                  </a>
+                  .
+                </p>
+                <button
+                  type="button"
+                  className="mt-6 self-start font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted-steel hover:text-fog-white"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setForm(initial);
+                  }}
+                >
+                  Send another
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={onSubmit}
+                className="space-y-4 rounded-sm border border-white/10 bg-void-navy/50 p-6 md:p-8"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block text-sm">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                      Name
+                    </span>
+                    <input
+                      required
+                      value={form.name}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, name: e.target.value }))
+                      }
+                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                      Company
+                    </span>
+                    <input
+                      value={form.company}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, company: e.target.value }))
+                      }
+                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                    />
+                  </label>
+                </div>
+
+                <label className="block text-sm">
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                    Building / project type
+                  </span>
+                  <select
+                    value={form.projectType}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, projectType: e.target.value }))
+                    }
+                    className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                  >
+                    <option>Commercial high-rise</option>
+                    <option>Residential tower</option>
+                    <option>Industrial / campus</option>
+                    <option>Other facade work</option>
+                  </select>
+                </label>
+
+                <label className="block text-sm">
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                    Message
+                  </span>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Building height, facade area, finish, timeline…"
+                    value={form.message}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, message: e.target.value }))
+                    }
+                    className="mt-2 w-full resize-y rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan placeholder:text-muted-steel/50"
+                  />
+                </label>
+
+                <button
+                  type="submit"
+                  className="w-full rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90 sm:w-auto"
+                >
+                  Request a quote
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

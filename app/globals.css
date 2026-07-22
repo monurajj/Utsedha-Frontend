@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void-navy: #0a0f1a;
+  --color-panel-slate: #121a2b;
+  --color-signal-red: #d6293e;
+  --color-telemetry-cyan: #4fd8c4;
+  --color-warning-amber: #f2a73b;
+  --color-fog-white: #e8ecf3;
+  --color-muted-steel: #7c89a3;
+
+  --font-display: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-void-navy);
+  color: var(--color-fog-white);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-signal-red) 40%, transparent);
+  color: var(--color-fog-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-telemetry-cyan);
+  outline-offset: 3px;
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, #1a2740 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, #1a2740 55%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.blueprint-grid-fine {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, #1a2740 35%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, #1a2740 35%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: marquee 40s linear infinite;
+}
+
+.ticker-track:hover,
+.ticker-paused .ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pulse {
+    animation: none;
+  }
+}
+
+/* Hero hexacopter props, flight path, spray gun */
+.hero-prop-spin {
+  transform-box: view-box;
+  animation: hero-prop-spin 0.4s linear infinite;
+}
+
+.hero-prop-spin-ccw {
+  animation-name: hero-prop-spin-ccw;
+}
+
+.hero-air-float {
+  transform-box: view-box;
+  transform-origin: 286px 130px;
+}
+
+.hero-paint-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-paint-drop 0.85s ease-out infinite;
+  opacity: 0;
+}
+
+.hero-paint-cone {
+  stroke-dasharray: 3 5;
+  animation: hero-paint-cone 0.7s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+.hero-paint-stripe {
+  animation: hero-paint-stripe 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-prop-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hero-prop-spin-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes hero-paint-drop {
+  0% {
+    opacity: 0.95;
+    transform: translate(0px, 0px) scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--paint-x, 100px), var(--paint-y, 0px)) scale(1.2);
+  }
+}
+
+@keyframes hero-paint-cone {
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes hero-paint-stripe {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.32;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-prop-spin,
+  .hero-prop-spin-ccw,
+  .hero-paint-drop,
+  .hero-paint-cone,
+  .hero-paint-stripe {
+    animation: none;
+  }
+
+  .hero-paint-drop {
+    opacity: 0.45;
+  }
+
+  .hero-paint-cone {
+    opacity: 0.3;
+  }
+
+  .hero-paint-stripe {
+    opacity: 0.22;
+  }
+}
