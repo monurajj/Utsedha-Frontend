@@ -7,7 +7,7 @@ type RoadmapLogProps = {
 
 export function RoadmapLog({ showIntro = true }: RoadmapLogProps) {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20">
+    <section className="site-section px-5 py-16 md:px-8 md:py-20">
       <div className="mx-auto max-w-6xl">
         {showIntro && (
           <>
@@ -25,12 +25,12 @@ export function RoadmapLog({ showIntro = true }: RoadmapLogProps) {
         )}
 
         <ol
-          className={`relative ${showIntro ? "mt-12" : ""} space-y-0 border-l border-white/10 pl-6 md:pl-8`}
+          className={`relative ${showIntro ? "mt-12" : ""} space-y-0 border-l border-slate-200 pl-6 md:pl-8`}
         >
           {roadmap.map((item, index) => (
             <li key={item.id} className="relative pb-10 last:pb-0">
               <span
-                className="absolute -left-[1.65rem] top-1.5 flex h-3 w-3 items-center justify-center rounded-full border border-signal-red bg-void-navy md:-left-[2.15rem]"
+                className="absolute -left-[1.65rem] top-1.5 flex h-3 w-3 items-center justify-center rounded-full border border-signal-red bg-white md:-left-[2.15rem]"
                 aria-hidden
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-signal-red" />

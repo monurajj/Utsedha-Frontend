@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   },
   description:
     "High-rise facade painting services without scaffolding or rope crews. Request a quote for your building.",
+  icons: {
+    icon: [{ url: "/faviconlogo.png", type: "image/png" }],
+    apple: [{ url: "/faviconlogo.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({

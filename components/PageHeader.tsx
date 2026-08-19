@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type PageHeaderProps = {
   eyebrow: string;
@@ -8,16 +9,12 @@ type PageHeaderProps = {
 
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <div className="border-b border-white/10 bg-panel-slate/40 px-5 pb-12 pt-28 md:px-8 md:pb-16 md:pt-32">
-      <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-          {eyebrow}
-        </p>
-        <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-fog-white md:text-5xl">
-          {title}
-        </h1>
+    <div className="site-section hero-mesh relative border-b border-slate-200/80 px-5 pb-14 pt-28 md:px-8 md:pb-20 md:pt-36">
+      <div className="relative z-[1] mx-auto max-w-6xl">
+        <span className="section-label">{eyebrow}</span>
+        <h1 className="section-title mt-5 max-w-3xl">{title}</h1>
         {description && (
-          <p className="mt-4 max-w-2xl text-base text-muted-steel md:text-lg">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-steel">
             {description}
           </p>
         )}
@@ -40,19 +37,22 @@ export function CtaBand({
   label = "Request a quote",
 }: CtaBandProps) {
   return (
-    <section className="px-5 py-16 md:px-8">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 rounded-sm border border-signal-red/25 bg-panel-slate px-6 py-8 md:flex-row md:items-center md:px-10">
-        <div>
-          <h2 className="font-display text-2xl font-semibold text-fog-white md:text-3xl">
+    <section className="site-section px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-gradient-to-br from-signal-red via-[#0052cc] to-telemetry-cyan px-8 py-12 shadow-[0_24px_64px_rgb(0_102_255_25%)] md:flex md:items-center md:justify-between md:gap-10 md:px-12 md:py-14">
+        <div className="max-w-xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-white md:text-3xl">
             {title}
           </h2>
-          <p className="mt-2 max-w-xl text-muted-steel">{body}</p>
+          <p className="mt-3 text-base leading-relaxed text-white/85 md:text-lg">
+            {body}
+          </p>
         </div>
         <Link
           href={href}
-          className="shrink-0 rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90"
+          className="btn-cta-light mt-8 shrink-0 gap-2 md:mt-0"
         >
           {label}
+          <ArrowRight size={16} aria-hidden />
         </Link>
       </div>
     </section>

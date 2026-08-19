@@ -71,15 +71,13 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
   };
 
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20">
+    <section className="site-section-alt px-5 py-16 md:px-8 md:py-20">
       <div className="mx-auto max-w-6xl">
-        <div className="rounded-sm border border-signal-red/30 bg-gradient-to-br from-panel-slate via-panel-slate to-void-navy p-8 md:p-12">
+        <div className="card-modern overflow-hidden p-8 md:p-12">
           {showIntro && (
             <>
-              <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-                Contact
-              </p>
-              <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight text-fog-white md:text-5xl">
+              <span className="section-label">Contact</span>
+              <h2 className="section-title mt-5 max-w-3xl">
                 Reduce your paint time and cost with Utsedha.
               </h2>
               <p className="mt-5 max-w-2xl text-base text-muted-steel md:text-lg">
@@ -94,7 +92,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
             {benefits.map(({ icon: Icon, label }) => (
               <li
                 key={label}
-                className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-void-navy/50 px-3 py-2 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-fog-white"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-fog-white"
               >
                 <Icon size={14} className="text-telemetry-cyan" aria-hidden />
                 {label}
@@ -109,25 +107,25 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
               </p>
               <a
                 href={`mailto:${contact.email}`}
-                className="block text-lg text-fog-white transition-colors hover:text-telemetry-cyan"
+                className="block text-lg text-fog-white transition-colors hover:text-signal-red"
               >
                 {contact.email}
               </a>
               <a
                 href={`mailto:${contact.engineeringEmail}`}
-                className="block text-sm text-muted-steel transition-colors hover:text-telemetry-cyan"
+                className="block text-sm text-muted-steel transition-colors hover:text-signal-red"
               >
                 {contact.engineeringEmail}
               </a>
               <a
                 href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                className="block text-lg text-fog-white transition-colors hover:text-telemetry-cyan"
+                className="block text-lg text-fog-white transition-colors hover:text-signal-red"
               >
                 {contact.phone}
               </a>
               <a
                 href="#"
-                className="mt-6 inline-flex items-center gap-2 border-b border-white/20 pb-1 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-muted-steel transition-colors hover:border-telemetry-cyan hover:text-telemetry-cyan"
+                className="mt-6 inline-flex items-center gap-2 border-b border-slate-300 pb-1 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-muted-steel transition-colors hover:border-signal-red hover:text-signal-red"
                 onClick={(e) => e.preventDefault()}
                 aria-disabled
                 title="Service overview PDF coming soon"
@@ -140,10 +138,10 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
 
             {status === "success" ? (
               <div
-                className="flex flex-col justify-center rounded-sm border border-telemetry-cyan/30 bg-void-navy/60 p-8"
+                className="flex flex-col justify-center rounded-sm border border-signal-red/30 bg-white p-8"
                 role="status"
               >
-                <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-telemetry-cyan">
+                <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-signal-red">
                   Request sent
                 </p>
                 <p className="mt-3 font-display text-2xl font-semibold text-fog-white">
@@ -152,7 +150,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 <p className="mt-3 text-sm text-muted-steel">
                   Your message has been delivered to{" "}
                   <a
-                    className="text-telemetry-cyan underline-offset-2 hover:underline"
+                    className="text-signal-red underline-offset-2 hover:underline"
                     href={`mailto:${contact.email}`}
                   >
                     {contact.email}
@@ -173,7 +171,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
             ) : (
               <form
                 onSubmit={onSubmit}
-                className="space-y-4 rounded-sm border border-white/10 bg-void-navy/50 p-6 md:p-8"
+                className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/50 p-6 md:p-8"
               >
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm">
@@ -186,7 +184,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                       onChange={(e) =>
                         setForm((f) => ({ ...f, name: e.target.value }))
                       }
-                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                      className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
                     />
                   </label>
                   <label className="block text-sm">
@@ -200,7 +198,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                       onChange={(e) =>
                         setForm((f) => ({ ...f, email: e.target.value }))
                       }
-                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                      className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
                     />
                   </label>
                 </div>
@@ -214,7 +212,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                       onChange={(e) =>
                         setForm((f) => ({ ...f, company: e.target.value }))
                       }
-                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                      className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
                     />
                   </label>
                 </div>
@@ -228,7 +226,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, projectType: e.target.value }))
                     }
-                    className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                    className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
                   >
                     <option>Commercial high-rise</option>
                     <option>Residential tower</option>
@@ -249,7 +247,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, message: e.target.value }))
                     }
-                    className="mt-2 w-full resize-y rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan placeholder:text-muted-steel/50"
+                    className="mt-2 w-full resize-y rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red placeholder:text-muted-steel/50"
                   />
                 </label>
 
@@ -262,7 +260,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                  className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
                   {status === "sending" ? "Sending…" : "Request a quote"}
                 </button>

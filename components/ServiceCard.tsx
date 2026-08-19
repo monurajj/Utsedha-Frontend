@@ -10,7 +10,7 @@ type ServiceCardProps = {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
-    <article className="group relative overflow-hidden rounded-sm border border-white/10 bg-panel-slate p-6 transition duration-300 hover:-translate-y-1 hover:border-signal-red/40 hover:shadow-[0_0_0_1px_rgba(214,41,62,0.25)] md:p-8">
+    <article className="group relative overflow-hidden rounded-sm border border-slate-200 bg-white/90 p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-signal-red/40 hover:shadow-[0_0_0_1px_rgba(0,102,255,0.25)] md:p-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="font-display text-2xl font-semibold tracking-tight text-fog-white md:text-3xl">
@@ -27,7 +27,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         {service.outcomes.map((item) => (
           <div
             key={item.label}
-            className="rounded-sm border border-white/10 bg-void-navy/60 px-4 py-3"
+            className="rounded-sm border border-slate-200 bg-white px-4 py-3"
           >
             <dt className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted-steel">
               {item.label}
@@ -60,7 +60,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
       )}
 
       {service.benefits && (
-        <div className="mt-8 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-2">
+        <div className="mt-8 grid gap-4 border-t border-slate-200 pt-6 sm:grid-cols-2">
           {service.benefits.map((benefit, i) => {
             const Icon = benefitIcons[i % benefitIcons.length];
             return (

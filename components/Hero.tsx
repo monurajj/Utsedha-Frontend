@@ -3,8 +3,15 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { gsap, prefersReducedMotion, registerGsap } from "@/lib/gsap";
 import { siteImages } from "@/lib/data/images";
+
+const highlights = [
+  "No scaffolding or rope crews",
+  "Continuous facade coverage",
+  "Managed end-to-end service",
+];
 
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -22,17 +29,17 @@ export function Hero() {
       }
 
       gsap
-        .timeline({ defaults: { ease: "power2.out" } })
+        .timeline({ defaults: { ease: "power3.out" } })
         .from(".hero-copy > *", {
           opacity: 0,
-          y: 28,
-          duration: 0.7,
-          stagger: 0.12,
+          y: 32,
+          duration: 0.8,
+          stagger: 0.1,
         })
         .from(
           ".hero-visual",
-          { opacity: 0, y: 24, duration: 0.8 },
-          "-=0.45",
+          { opacity: 0, y: 28, duration: 0.9 },
+          "-=0.5",
         );
     }, root);
 
@@ -43,67 +50,54 @@ export function Hero() {
     <section
       id="top"
       ref={rootRef}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden pt-24"
+      className="site-section hero-mesh relative flex min-h-[92vh] flex-col justify-center overflow-hidden pt-20"
     >
-      <div className="pointer-events-none absolute inset-0 blueprint-grid opacity-70" />
-      <div className="pointer-events-none absolute inset-0 blueprint-grid-fine opacity-40" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-void-navy via-void-navy/40 to-void-navy" />
-
-      <div className="relative mx-auto grid w-full max-w-6xl flex-1 items-center gap-10 px-5 py-16 md:grid-cols-[1.05fr_0.95fr] md:px-8 md:py-20">
+      <div className="relative z-[1] mx-auto grid w-full max-w-6xl flex-1 items-center gap-12 px-5 pb-16 pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-10">
         <div className="hero-copy">
-          <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-            Utsedha Unmanned · High-Rise Facade Painting
-          </p>
-          <h1 className="mt-5 font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight text-fog-white md:text-[3.75rem] lg:text-[4.5rem]">
-            Facades painted in hours, not weeks.
+          <span className="section-label">High-rise facade painting</span>
+          <h1 className="mt-6 font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight text-fog-white md:text-[3.5rem] lg:text-[4.25rem]">
+            Facades painted in{" "}
+            <span className="text-signal-red">hours</span>, not weeks.
           </h1>
-          <p className="mt-6 max-w-xl text-base text-muted-steel md:text-lg">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-steel">
             UUPL paints high-rise buildings without scaffolding or rope crews on
-            the elevation. Safer sites. Faster turnaround. Less disruption. You
-            buy the painting service — we handle the rest.
+            the elevation. Safer sites, faster turnaround, less disruption — you
+            buy the painting service, we handle the rest.
           </p>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <Link
-              href="/service"
-              className="rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90"
-            >
+
+          <ul className="mt-8 space-y-3">
+            {highlights.map((item) => (
+              <li key={item} className="flex items-center gap-3 text-sm text-fog-white md:text-base">
+                <CheckCircle2 size={18} className="shrink-0 text-signal-red" aria-hidden />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link href="/contact" className="btn-primary gap-2">
+              Request a quote
+              <ArrowRight size={16} aria-hidden />
+            </Link>
+            <Link href="/service" className="btn-secondary">
               See the service
             </Link>
-            <Link
-              href="/contact"
-              className="rounded-sm border border-fog-white/25 px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-colors hover:border-telemetry-cyan hover:text-telemetry-cyan"
-            >
-              Request a quote
-            </Link>
           </div>
-          <p className="mt-8 max-w-md font-mono text-[0.7rem] uppercase tracking-[0.12em] text-muted-steel">
-            Cut facade painting costs{" "}
-            <span className="text-telemetry-cyan">without cutting corners.</span>
-          </p>
         </div>
 
         <div className="hero-visual relative">
-          <div className="absolute -inset-6 rounded-full bg-signal-red/5 blur-3xl" />
-          <div className="relative overflow-hidden rounded-sm border border-white/10 bg-panel-slate/40">
-            <Image
-              src={siteImages.heroPainting.src}
-              alt={siteImages.heroPainting.alt}
-              width={siteImages.heroPainting.width}
-              height={siteImages.heroPainting.height}
-              className="h-auto w-full object-cover"
-              priority
-            />
-          </div>
-          <div className="mt-4 flex flex-wrap gap-3 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-muted-steel">
-            <span className="rounded-sm border border-white/10 bg-panel-slate/60 px-2 py-1">
-              No scaffolding
-            </span>
-            <span className="rounded-sm border border-telemetry-cyan/30 bg-panel-slate/60 px-2 py-1 text-telemetry-cyan">
-              Continuous coverage
-            </span>
-            <span className="rounded-sm border border-signal-red/30 bg-panel-slate/60 px-2 py-1 text-signal-red">
-              High-rise ready
-            </span>
+          <div className="absolute -inset-8 rounded-full bg-signal-red/10 blur-3xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-2 shadow-[0_24px_64px_rgb(0_102_255_12%)]">
+            <div className="overflow-hidden rounded-xl">
+              <Image
+                src={siteImages.heroPainting.src}
+                alt={siteImages.heroPainting.alt}
+                width={siteImages.heroPainting.width}
+                height={siteImages.heroPainting.height}
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>

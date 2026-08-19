@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { siteImages } from "@/lib/data/images";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const featured = {
   ...siteImages.heroPainting,
@@ -46,7 +47,7 @@ function GalleryFigure({
 }) {
   return (
     <figure
-      className={`group relative overflow-hidden rounded-sm border border-white/10 bg-panel-slate ${className}`}
+      className={`group relative overflow-hidden rounded-2xl bg-slate-100 shadow-sm ${className}`}
     >
       <Image
         src={src}
@@ -55,10 +56,10 @@ function GalleryFigure({
         height={height}
         priority={priority}
         sizes={sizes}
-        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void-navy/80 via-void-navy/10 to-transparent opacity-90" />
-      <figcaption className="absolute inset-x-0 bottom-0 px-4 py-3 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-fog-white/90">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+      <figcaption className="absolute inset-x-0 bottom-0 px-5 py-4 text-sm font-medium text-white">
         {caption}
       </figcaption>
     </figure>
@@ -67,21 +68,17 @@ function GalleryFigure({
 
 export function ImageGallery() {
   return (
-    <section className="border-t border-white/10 px-5 py-20 md:px-8">
+    <section className="site-section-alt px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-          In the field
-        </p>
-        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-fog-white md:text-4xl">
-          Real jobs. Real elevations.
-        </h2>
-        <p className="mt-4 max-w-2xl text-muted-steel">
-          From ground logistics to continuous facade coverage — how UUPL shows up
-          on site.
-        </p>
+        <SectionHeader
+          label="In the field"
+          title="Real jobs. Real elevations."
+          description="From ground logistics to continuous facade coverage — how UUPL shows up on site."
+          align="center"
+          className="mb-12"
+        />
 
-        {/* Editorial mosaic: featured lead + balanced supporting grid */}
-        <div className="mt-10 grid gap-2.5 md:grid-cols-12 md:grid-rows-[minmax(120px,14vw)_minmax(120px,14vw)]">
+        <div className="grid gap-3 md:grid-cols-12 md:grid-rows-[minmax(120px,14vw)_minmax(120px,14vw)]">
           <GalleryFigure
             {...featured}
             priority
@@ -100,7 +97,7 @@ export function ImageGallery() {
           />
         </div>
 
-        <div className="mt-2.5 grid gap-2.5 sm:grid-cols-2">
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <GalleryFigure
             {...supporting[2]}
             className="aspect-[2/1]"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const teasers = [
   {
@@ -30,35 +31,35 @@ const teasers = [
 
 export function HomeTeasers() {
   return (
-    <section className="border-t border-white/10 px-5 py-24 md:px-8">
+    <section className="site-section px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-          Explore
-        </p>
-        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-fog-white md:text-4xl">
-          What UUPL offers.
-        </h2>
+        <SectionHeader
+          label="Explore"
+          title="What UUPL offers."
+          description="Everything you need to understand our service, process, and direction — in one place."
+          className="mb-12"
+        />
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           {teasers.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="group rounded-sm border border-white/10 bg-panel-slate p-6 transition duration-300 hover:-translate-y-0.5 hover:border-signal-red/40 md:p-8"
+              className="card-modern group flex flex-col p-7 md:p-8"
             >
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-steel">
+              <p className="text-xs font-semibold uppercase tracking-wider text-signal-red">
                 {item.eyebrow}
               </p>
               <h3 className="mt-3 font-display text-xl font-semibold text-fog-white md:text-2xl">
                 {item.title}
               </h3>
-              <p className="mt-3 text-sm text-muted-steel md:text-base">
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-steel md:text-base">
                 {item.body}
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-telemetry-cyan">
+              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-signal-red">
                 Learn more
                 <ArrowRight
-                  size={14}
+                  size={16}
                   className="transition-transform group-hover:translate-x-1"
                 />
               </span>
