@@ -33,16 +33,17 @@ export function Nav() {
   }, [open]);
 
   const isHome = pathname === "/";
+  const solid = scrolled || open || !isHome;
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open || !isHome
-          ? "border-b border-white/10 bg-void-navy/95 backdrop-blur-md"
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        solid
+          ? "border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-lg"
+          : "bg-white/60 backdrop-blur-md"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 md:px-8">
         <Link href="/" className="group flex items-center">
           <Image
             src="/logo.png"
@@ -50,33 +51,26 @@ export function Nav() {
             width={140}
             height={56}
             priority
-            className="h-10 w-auto brightness-0 invert transition-opacity group-hover:opacity-80"
+            className="h-9 w-auto transition-opacity group-hover:opacity-80 md:h-10"
           />
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`font-mono text-[0.7rem] uppercase tracking-[0.16em] transition-colors ${
-                    active
-                      ? "text-fog-white"
-                      : "text-muted-steel hover:text-fog-white"
-                  }`}
+                  className={`nav-link ${active ? "nav-link--active" : ""}`}
                 >
                   {link.label}
                 </Link>
               </li>
             );
           })}
-          <li>
-            <Link
-              href="/contact"
-              className="rounded-sm bg-signal-red px-4 py-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90"
-            >
+          <li className="ml-2">
+            <Link href="/contact" className="btn-primary !px-5 !py-2.5 !text-sm">
               Request a quote
             </Link>
           </li>
@@ -84,7 +78,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-sm border border-white/15 p-2 text-fog-white md:hidden"
+          className="nav-menu-btn inline-flex md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -97,24 +91,24 @@ export function Nav() {
       {open && (
         <div
           id="mobile-nav"
-          className="border-t border-white/10 bg-void-navy px-5 py-6 md:hidden"
+          className="border-t border-slate-200 bg-white px-5 py-6 md:hidden"
         >
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="font-mono text-sm uppercase tracking-[0.16em] text-fog-white"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href="/contact"
-                className="inline-block rounded-sm bg-signal-red px-4 py-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-fog-white"
-              >
+          <ul className="flex flex-col gap-1">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`nav-link-mobile ${active ? "nav-link-mobile--active" : ""}`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="pt-3">
+              <Link href="/contact" className="btn-primary w-full">
                 Request a quote
               </Link>
             </li>

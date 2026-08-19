@@ -7,7 +7,7 @@ type AboutSectionProps = {
 
 export function AboutSection({ showIntro = true }: AboutSectionProps) {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20">
+    <section className="site-section-alt px-5 py-16 md:px-8 md:py-20">
       <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:items-start">
         <div>
           {showIntro && (
@@ -47,7 +47,7 @@ export function AboutSection({ showIntro = true }: AboutSectionProps) {
               Long-term, Utsedha is building beyond a painting drone — toward a
               multi-purpose aerial infrastructure-maintenance platform.
             </p>
-            <p className="font-mono text-sm uppercase tracking-[0.12em] text-telemetry-cyan">
+            <p className="font-mono text-sm uppercase tracking-[0.12em] text-signal-red">
               Deep-tech UAV. Industrial-grade payload. Built for the hard jobs.
             </p>
           </div>

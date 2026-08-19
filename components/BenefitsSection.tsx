@@ -7,6 +7,7 @@ import {
   Building2,
 } from "lucide-react";
 import { whyChooseUs } from "@/lib/data/benefits";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const icons = [Clock3, Wallet, Crosshair, ShieldOff, Activity, Building2];
 
@@ -16,41 +17,42 @@ type BenefitsSectionProps = {
 
 export function BenefitsSection({ showIntro = true }: BenefitsSectionProps) {
   return (
-    <section className="border-y border-white/10 bg-panel-slate/40 px-5 py-20 md:px-8 md:py-24">
+    <section className="site-section-alt px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
         {showIntro && (
-          <>
-            <p className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-signal-red">
-              Why choose UUPL
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-fog-white md:text-4xl">
-              Benefits that show up on the job.
-            </h2>
-            <p className="mt-4 max-w-2xl text-muted-steel">
-              Time, cost, precision, and safety — the reasons building owners and
-              contractors pick a managed painting service over scaffolding.
-            </p>
-          </>
+          <SectionHeader
+            label="Why choose UUPL"
+            title="Benefits that show up on the job."
+            description="Time, cost, precision, and safety — the reasons building owners and contractors pick a managed painting service over scaffolding."
+            align="center"
+            className="mb-14"
+          />
         )}
 
         <ul
-          className={`${showIntro ? "mt-12" : ""} grid gap-5 sm:grid-cols-2 lg:grid-cols-3`}
+          className={`${showIntro ? "" : ""} grid gap-5 sm:grid-cols-2 lg:grid-cols-3`}
         >
           {whyChooseUs.map((benefit, i) => {
             const Icon = icons[i % icons.length];
+            const featured = i === 0;
             return (
               <li
                 key={benefit.id}
-                className="rounded-sm border border-white/10 bg-void-navy/50 p-6 transition duration-300 hover:border-signal-red/35"
+                className={`card-modern p-7 ${featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-1" : ""}`}
               >
-                <Icon className="text-signal-red" size={22} aria-hidden />
-                <h3 className="mt-4 font-display text-xl font-semibold text-fog-white">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-signal-red/10">
+                  <Icon className="text-signal-red" size={22} aria-hidden />
+                </div>
+                <p className="mt-5 font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em] text-muted-steel">
+                  0{i + 1}
+                </p>
+                <h3 className="mt-2 font-display text-xl font-semibold text-fog-white">
                   {benefit.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-steel">
                   {benefit.detail}
                 </p>
-                <p className="mt-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-telemetry-cyan">
+                <p className="mt-5 inline-block rounded-full bg-signal-red/8 px-3 py-1 text-xs font-medium text-signal-red">
                   {benefit.proof}
                 </p>
               </li>

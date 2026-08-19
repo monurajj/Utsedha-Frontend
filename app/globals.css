@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void-navy: #0a0f1a;
-  --color-panel-slate: #121a2b;
-  --color-signal-red: #d6293e;
-  --color-telemetry-cyan: #4fd8c4;
-  --color-warning-amber: #f2a73b;
-  --color-fog-white: #e8ecf3;
-  --color-muted-steel: #7c89a3;
+  --color-void-navy: #ffffff;
+  --color-panel-slate: #eef4ff;
+  --color-signal-red: #0066ff;
+  --color-telemetry-cyan: #0047bb;
+  --color-warning-amber: #d97706;
+  --color-fog-white: #1a2332;
+  --color-muted-steel: #5a6a85;
 
   --font-display: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -36,36 +36,329 @@ html.lenis body {
 }
 
 body {
-  background-color: var(--color-void-navy);
+  background-color: #f8fbff;
   color: var(--color-fog-white);
   font-family: var(--font-body);
-  font-size: 1.125rem;
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Minimal section backgrounds — soft gradient with a faint grid */
+.site-pattern,
+.site-section {
+  background-color: #fafcff;
+  background-image:
+    linear-gradient(to right, rgb(0 102 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 102 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #f3f7ff 100%);
+  background-size:
+    72px 72px,
+    72px 72px,
+    100% 100%;
+}
+
+.site-section-alt {
+  background-color: #f4f8ff;
+  background-image:
+    linear-gradient(to right, rgb(0 102 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 102 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, #f6f9ff 0%, #eef4ff 100%);
+  background-size:
+    72px 72px,
+    72px 72px,
+    100% 100%;
+}
+
+:root {
+  --oct-clip-outer: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 6px
+  );
+  --oct-clip-inner: polygon(
+    7px 1px,
+    calc(100% - 7px) 1px,
+    calc(100% - 1px) 7px,
+    calc(100% - 1px) calc(100% - 7px),
+    calc(100% - 7px) calc(100% - 1px),
+    7px calc(100% - 1px),
+    1px calc(100% - 7px),
+    1px 7px
+  );
+  --oct-clip-label: polygon(
+    4px 0,
+    calc(100% - 4px) 0,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    0 calc(100% - 4px),
+    0 4px
+  );
+}
+
+/* Modern layout utilities */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0;
+  clip-path: var(--oct-clip-label);
+  background: color-mix(in srgb, var(--color-signal-red) 10%, white);
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-signal-red);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-fog-white);
+}
+
+.chamfer-clip {
+  border-radius: 0;
+  clip-path: var(--oct-clip-outer);
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-muted-steel);
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-link:hover {
+  background: #f1f5f9;
+  color: var(--color-fog-white);
+}
+
+.nav-link--active {
+  background: color-mix(in srgb, var(--color-signal-red) 10%, white);
+  color: var(--color-signal-red);
+}
+
+.nav-link:hover,
+.nav-link--active,
+.nav-link-mobile:hover,
+.nav-link-mobile--active,
+.nav-menu-btn {
+  border-radius: 0;
+  clip-path: var(--oct-clip-outer);
+}
+
+.nav-link-mobile {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-fog-white);
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-link-mobile:hover {
+  background: #f8fafc;
+}
+
+.nav-link-mobile--active {
+  background: color-mix(in srgb, var(--color-signal-red) 10%, white);
+  color: var(--color-signal-red);
+}
+
+.nav-menu-btn {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0.625rem;
+  color: var(--color-fog-white);
+  isolation: isolate;
+  transition: color 0.2s;
+}
+
+.nav-menu-btn::before,
+.nav-menu-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: background 0.2s;
+}
+
+.nav-menu-btn::before {
+  background: #64748b;
+  clip-path: var(--oct-clip-outer);
+}
+
+.nav-menu-btn::after {
+  inset: 0;
+  background: white;
+  clip-path: var(--oct-clip-inner);
+}
+
+.nav-menu-btn:hover::before {
+  background: var(--color-signal-red);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-cta-light {
+  border-radius: 0;
+  clip-path: var(--oct-clip-outer);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-signal-red);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  transition: opacity 0.2s, transform 0.2s, filter 0.2s;
+  filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--color-signal-red) 30%, transparent));
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-fog-white);
+  isolation: isolate;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.btn-secondary::before,
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: background 0.2s;
+}
+
+.btn-secondary::before {
+  background: #64748b;
+  clip-path: var(--oct-clip-outer);
+}
+
+.btn-secondary::after {
+  background: white;
+  clip-path: var(--oct-clip-inner);
+}
+
+.btn-secondary:hover {
+  color: var(--color-signal-red);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:hover::before {
+  background: var(--color-signal-red);
+}
+
+.btn-cta-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-signal-red);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-cta-light:hover {
+  background: rgb(255 255 255 / 95%);
+  transform: translateY(-1px);
+}
+
+.card-modern {
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.card-modern:hover {
+  border-color: color-mix(in srgb, var(--color-signal-red) 30%, #e2e8f0);
+  box-shadow: 0 12px 40px rgb(0 102 255 / 8%);
+  transform: translateY(-2px);
+}
+
+.hero-mesh {
+  position: relative;
+}
+
+.hero-mesh::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 10% 20%,
+      color-mix(in srgb, var(--color-signal-red) 4%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 65% 55% at 90% 10%,
+      color-mix(in srgb, var(--color-telemetry-cyan) 3%, transparent),
+      transparent 68%
+    );
+}
+
 ::selection {
-  background-color: color-mix(in srgb, var(--color-signal-red) 40%, transparent);
+  background-color: color-mix(in srgb, var(--color-signal-red) 25%, transparent);
   color: var(--color-fog-white);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-telemetry-cyan);
+  outline: 2px solid var(--color-signal-red);
   outline-offset: 3px;
 }
 
 .blueprint-grid {
   background-image:
-    linear-gradient(to right, color-mix(in srgb, #1a2740 55%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, #1a2740 55%, transparent) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, #0066ff 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, #0066ff 12%, transparent) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 .blueprint-grid-fine {
   background-image:
-    linear-gradient(to right, color-mix(in srgb, #1a2740 35%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, #1a2740 35%, transparent) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, #0066ff 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, #0066ff 8%, transparent) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
@@ -208,14 +501,14 @@ body {
   }
 
   .hero-paint-drop {
-    opacity: 0.45;
+    opacity: 0.6;
   }
 
   .hero-paint-cone {
-    opacity: 0.3;
+    opacity: 0.45;
   }
 
   .hero-paint-stripe {
-    opacity: 0.22;
+    opacity: 0.32;
   }
 }

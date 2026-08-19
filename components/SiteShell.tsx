@@ -5,7 +5,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Nav />
-      <main className="min-h-screen">{children}</main>
+      <main className="site-pattern min-h-screen">{children}</main>
       <Footer />
     </>
   );

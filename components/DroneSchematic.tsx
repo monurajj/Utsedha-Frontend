@@ -145,8 +145,8 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
           width="10"
           height="40"
           rx="1"
-          fill="#E8ECF3"
-          opacity="0.22"
+          fill="#0066FF"
+          opacity="0.28"
         />
       </g>
 
@@ -253,7 +253,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
               cx={cx}
               cy={cy}
               r="16"
-              stroke="#D6293E"
+              stroke="#0066FF"
               strokeWidth="1.5"
               fill="#0A0F1A"
             />
@@ -261,7 +261,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
               cx={cx}
               cy={cy}
               r="17"
-              stroke="#D6293E"
+              stroke="#0066FF"
               strokeWidth="0.75"
               opacity="0.25"
             />
@@ -274,7 +274,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
                 y1={cy}
                 x2={cx + 13}
                 y2={cy}
-                stroke="#D6293E"
+                stroke="#0066FF"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
@@ -283,7 +283,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
                 y1={cy - 13}
                 x2={cx}
                 y2={cy + 13}
-                stroke="#D6293E"
+                stroke="#0066FF"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
@@ -292,7 +292,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
                 y1={cy - 9}
                 x2={cx + 9}
                 y2={cy + 9}
-                stroke="#D6293E"
+                stroke="#0066FF"
                 strokeWidth="1.25"
                 strokeLinecap="round"
                 opacity="0.65"
@@ -302,12 +302,12 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
                 y1={cy - 9}
                 x2={cx - 9}
                 y2={cy + 9}
-                stroke="#D6293E"
+                stroke="#0066FF"
                 strokeWidth="1.25"
                 strokeLinecap="round"
                 opacity="0.65"
               />
-              <circle cx={cx} cy={cy} r="3" fill="#D6293E" />
+              <circle cx={cx} cy={cy} r="3" fill="#0066FF" />
             </g>
           </g>
         ))}
@@ -394,7 +394,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
                 cx={400}
                 cy={128}
                 r={n % 2 === 0 ? 2 : 1.3}
-                fill="#E8ECF3"
+                fill={n % 3 === 0 ? "#0066FF" : "#4D94FF"}
                 style={
                   {
                     animationDelay: `${n * 0.1}s`,
@@ -410,24 +410,27 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
           <path
             className="hero-paint-cone"
             d="M400 128 L548 116"
-            stroke="#E8ECF3"
+            stroke="#0066FF"
             strokeWidth="1.1"
             strokeLinecap="round"
+            opacity="0.55"
           />
           <path
             className="hero-paint-cone"
             d="M400 128 L548 128"
-            stroke="#E8ECF3"
+            stroke="#3399FF"
             strokeWidth="1.35"
             strokeLinecap="round"
+            opacity="0.65"
             style={{ animationDelay: "0.15s" }}
           />
           <path
             className="hero-paint-cone"
             d="M400 128 L548 140"
-            stroke="#E8ECF3"
+            stroke="#0066FF"
             strokeWidth="1.1"
             strokeLinecap="round"
+            opacity="0.55"
             style={{ animationDelay: "0.3s" }}
           />
         </g>

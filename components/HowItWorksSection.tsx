@@ -6,7 +6,7 @@ type HowItWorksSectionProps = {
 
 export function HowItWorksSection({ showIntro = true }: HowItWorksSectionProps) {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-20">
+    <section className="site-section px-5 py-16 md:px-8 md:py-20">
       <div className="mx-auto max-w-6xl">
         {showIntro && (
           <>
@@ -27,7 +27,7 @@ export function HowItWorksSection({ showIntro = true }: HowItWorksSectionProps) 
           {howItWorks.map((step) => (
             <li
               key={step.id}
-              className="rounded-sm border border-white/10 bg-panel-slate p-6"
+              className="rounded-sm border border-slate-200 bg-white p-6"
             >
               <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-signal-red">
                 {step.step}

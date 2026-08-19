@@ -23,7 +23,7 @@ export function MediaFrame({
 }: MediaFrameProps) {
   return (
     <figure className={className}>
-      <div className="relative overflow-hidden rounded-sm border border-white/10 bg-panel-slate/40">
+      <div className="relative overflow-hidden rounded-sm border border-slate-200 bg-panel-slate/40">
         <Image
           src={src}
           alt={alt}
