@@ -68,6 +68,7 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
       ],
       ease: "sine.inOut",
       repeat: -1,
+      paused: true,
       onUpdate: () => {
         gsap.set(floatEl, {
           x: state.x,
@@ -78,7 +79,23 @@ export function DroneSchematic({ className = "" }: { className?: string }) {
       },
     });
 
+    // Only run the animation when the schematic is visible — prevents
+    // per-frame DOM writes (setAttribute on SVG path d) from running
+    // during scroll, which was causing main-thread jank.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          tween.play();
+        } else {
+          tween.pause();
+        }
+      },
+      { threshold: 0.1 },
+    );
+    if (floatEl.ownerSVGElement) observer.observe(floatEl.ownerSVGElement);
+
     return () => {
+      observer.disconnect();
       tween.kill();
       gsap.set(floatEl, { clearProps: "transform" });
     };

@@ -20,14 +20,19 @@ export function SmoothScrollProvider({
     }
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 0.9,
       smoothWheel: true,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.0,
+      wheelMultiplier: 1.0,
+      // autoRaf: false lets GSAP's ticker drive Lenis exclusively —
+      // prevents two competing RAF loops causing stutter
+      autoRaf: false,
     });
     lenisRef.current = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
+    // GSAP ticker time is in seconds; Lenis.raf expects milliseconds
     const ticker = (time: number) => {
       lenis.raf(time * 1000);
     };

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { contact } from "@/lib/data/specs";
 import { footerLinks } from "@/lib/navigation";
 import { DroneSchematic } from "@/components/DroneSchematic";
@@ -23,6 +24,14 @@ export function Footer() {
             </li>
             <li>
               <a
+                href={`mailto:${contact.engineeringEmail}`}
+                className="text-muted-steel transition-colors hover:text-telemetry-cyan"
+              >
+                {contact.engineeringEmail}
+              </a>
+            </li>
+            <li>
+              <a
                 href={`tel:${contact.phone.replace(/\s/g, "")}`}
                 className="text-fog-white/85 transition-colors hover:text-telemetry-cyan"
               >
@@ -30,6 +39,9 @@ export function Footer() {
               </a>
             </li>
             <li className="text-muted-steel">{contact.location}</li>
+            <li className="pt-1 text-xs leading-relaxed text-muted-steel/70">
+              {contact.registeredAddress}
+            </li>
           </ul>
           <Link
             href="/contact"
@@ -60,15 +72,15 @@ export function Footer() {
 
         {/* Column 3 — Brand */}
         <div>
-          <Link
-            href="/"
-            className="font-display text-2xl font-semibold tracking-wide text-fog-white transition-colors hover:text-signal-red"
-          >
-            UUPL
+          <Link href="/" className="group inline-block">
+            <Image
+              src="/logo.png"
+              alt="UUPL — Utsedha Unmanned Private Limited"
+              width={220}
+              height={88}
+              className="h-20 w-auto brightness-0 invert transition-opacity group-hover:opacity-80"
+            />
           </Link>
-          <p className="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-steel">
-            {contact.company}
-          </p>
           <p className="mt-3 max-w-sm text-sm text-muted-steel">
             High-rise facade painting without scaffolding or rope crews on the
             elevation. We paint buildings — we don&apos;t sell drones.

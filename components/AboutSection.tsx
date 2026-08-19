@@ -29,17 +29,26 @@ export function AboutSection({ showIntro = true }: AboutSectionProps) {
               <span className="text-fog-white">
                 Utsedha Unmanned Private Limited
               </span>{" "}
-              is based in India and exists to paint high-rise facades better than
-              scaffolding and rope access allow — safer, faster, and without weeks
-              of site disruption.
+              is a deep-tech UAV startup developing a heavy-lift industrial drone
+              for aerial painting and infrastructure maintenance.
             </p>
             <p>
-              We are not a drone reseller. We run the painting job end-to-end so
-              building owners, contractors, and facade teams get a finished
-              elevation — not a piece of equipment to operate.
+              Our initial focus is a specialised UAV capable of carrying an
+              industrial painting payload and operating close to large structures
+              — high-rise buildings, building façades, industrial plants, wind
+              turbines, and other difficult-to-access infrastructure.
+            </p>
+            <p>
+              The goal is to reduce dependence on conventional high-risk methods:
+              scaffolding, rope-access workers, cranes, and other manual
+              high-altitude operations.
+            </p>
+            <p>
+              Long-term, Utsedha is building beyond a painting drone — toward a
+              multi-purpose aerial infrastructure-maintenance platform.
             </p>
             <p className="font-mono text-sm uppercase tracking-[0.12em] text-telemetry-cyan">
-              Built for teams who need the facade done, not a hardware brief.
+              Deep-tech UAV. Industrial-grade payload. Built for the hard jobs.
             </p>
           </div>
         </div>

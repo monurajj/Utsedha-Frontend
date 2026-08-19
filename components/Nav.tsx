@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/navigation";
@@ -42,13 +43,15 @@ export function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-        <Link href="/" className="group flex flex-col leading-none">
-          <span className="font-display text-2xl font-semibold tracking-wide text-fog-white transition-colors group-hover:text-signal-red">
-            UUPL
-          </span>
-          <span className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-steel">
-            Utsedha Unmanned
-          </span>
+        <Link href="/" className="group flex items-center">
+          <Image
+            src="/logo.png"
+            alt="UUPL — Utsedha Unmanned Private Limited"
+            width={140}
+            height={56}
+            priority
+            className="h-10 w-auto brightness-0 invert transition-opacity group-hover:opacity-80"
+          />
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">

@@ -4,6 +4,8 @@ import { FormEvent, useState } from "react";
 import { Download, ShieldOff, Clock3, HardHat } from "lucide-react";
 import { contact } from "@/lib/data/specs";
 
+type Status = "idle" | "sending" | "success" | "error";
+
 const benefits = [
   {
     icon: ShieldOff,
@@ -21,6 +23,7 @@ const benefits = [
 
 type FormState = {
   name: string;
+  email: string;
   company: string;
   projectType: string;
   message: string;
@@ -28,6 +31,7 @@ type FormState = {
 
 const initial: FormState = {
   name: "",
+  email: "",
   company: "",
   projectType: "Commercial high-rise",
   message: "",
@@ -39,20 +43,31 @@ type ContactSectionProps = {
 
 export function ContactSection({ showIntro = true }: ContactSectionProps) {
   const [form, setForm] = useState<FormState>(initial);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
 
-    const subject = encodeURIComponent(
-      `UUPL facade painting quote — ${form.projectType} — ${form.company || form.name}`,
-    );
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nCompany: ${form.company}\nBuilding / project type: ${form.projectType}\n\n${form.message}`,
-    );
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+    }
   };
 
   return (
@@ -99,6 +114,12 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 {contact.email}
               </a>
               <a
+                href={`mailto:${contact.engineeringEmail}`}
+                className="block text-sm text-muted-steel transition-colors hover:text-telemetry-cyan"
+              >
+                {contact.engineeringEmail}
+              </a>
+              <a
                 href={`tel:${contact.phone.replace(/\s/g, "")}`}
                 className="block text-lg text-fog-white transition-colors hover:text-telemetry-cyan"
               >
@@ -115,38 +136,34 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 Download the service overview
                 <span className="text-warning-amber">(soon)</span>
               </a>
-              <p className="pt-4 text-sm text-muted-steel">
-                Quote form is frontend-only for this phase — submit opens a
-                prefilled email draft. No backend submission yet.
-              </p>
             </div>
 
-            {submitted ? (
+            {status === "success" ? (
               <div
                 className="flex flex-col justify-center rounded-sm border border-telemetry-cyan/30 bg-void-navy/60 p-8"
                 role="status"
               >
                 <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-telemetry-cyan">
-                  Request received
+                  Request sent
                 </p>
                 <p className="mt-3 font-display text-2xl font-semibold text-fog-white">
-                  Your email draft should be open.
+                  We&apos;ll be in touch shortly.
                 </p>
                 <p className="mt-3 text-sm text-muted-steel">
-                  If nothing opened, write us directly at{" "}
+                  Your message has been delivered to{" "}
                   <a
                     className="text-telemetry-cyan underline-offset-2 hover:underline"
                     href={`mailto:${contact.email}`}
                   >
                     {contact.email}
                   </a>
-                  .
+                  . Expect a response within one business day.
                 </p>
                 <button
                   type="button"
                   className="mt-6 self-start font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted-steel hover:text-fog-white"
                   onClick={() => {
-                    setSubmitted(false);
+                    setStatus("idle");
                     setForm(initial);
                   }}
                 >
@@ -172,6 +189,22 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                       className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
                     />
                   </label>
+                  <label className="block text-sm">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                      Email
+                    </span>
+                    <input
+                      required
+                      type="email"
+                      value={form.email}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, email: e.target.value }))
+                      }
+                      className="mt-2 w-full rounded-sm border border-white/15 bg-panel-slate px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-telemetry-cyan"
+                    />
+                  </label>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm">
                     <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
                       Company
@@ -220,11 +253,18 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                   />
                 </label>
 
+                {status === "error" && (
+                  <p className="rounded-sm border border-signal-red/40 bg-signal-red/10 px-3 py-2 font-mono text-[0.7rem] text-signal-red">
+                    {errorMsg || "Something went wrong. Please try again."}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90 sm:w-auto"
+                  disabled={status === "sending"}
+                  className="w-full rounded-sm bg-signal-red px-6 py-3 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-fog-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
-                  Request a quote
+                  {status === "sending" ? "Sending…" : "Request a quote"}
                 </button>
               </form>
             )}
