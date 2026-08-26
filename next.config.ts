@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // Do not use `output: "export"` — the contact form needs /api/contact
+  // as a serverless route (static export cannot serve API routes).
   images: {
     unoptimized: true,
   },
