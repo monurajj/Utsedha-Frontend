@@ -1,8 +1,8 @@
 const stats = [
-  { value: "No scaffold", label: "Zero rope crews on elevation" },
-  { value: "Continuous", label: "Uninterrupted facade coverage" },
-  { value: "High-rise", label: "Built for tall facades" },
-  { value: "India", label: "Based in Himachal Pradesh" },
+  { value: "IIT Ropar", label: "Incubated startup" },
+  { value: "No scaffold", label: "No rope crews on the elevation" },
+  { value: "Tethered", label: "Continuous power & paint supply" },
+  { value: "Pilots open", label: "Selecting buildings in India" },
 ];
 
 export function TrustStrip() {

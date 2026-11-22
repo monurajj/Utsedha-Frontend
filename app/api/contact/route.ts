@@ -1,14 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const { name, email, company, projectType, message } = await req.json();
+const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
 
-  if (!name || !email || !message) {
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => ({}));
+  const field = (key: string, max: number) =>
+    typeof body[key] === "string" ? body[key].trim().slice(0, max) : "";
+
+  const rawName = field("name", 100);
+  const rawEmail = field("email", 200);
+  const rawMessage = field("message", 5000);
+
+  if (!rawName || !rawEmail || !rawMessage) {
     return NextResponse.json(
       { error: "Name, email and message are required." },
       { status: 400 },
     );
   }
+  if (!EMAIL_RE.test(rawEmail)) {
+    return NextResponse.json(
+      { error: "Please enter a valid email address." },
+      { status: 400 },
+    );
+  }
+
+  // Escape everything that goes into email HTML so form input can't inject markup/links.
+  const name = escapeHtml(rawName);
+  const email = escapeHtml(rawEmail);
+  const message = escapeHtml(rawMessage);
+  const company = escapeHtml(field("company", 200));
+  const phone = escapeHtml(field("phone", 30));
+  const role = escapeHtml(field("role", 100));
+  const projectType = escapeHtml(field("projectType", 100)) || "—";
 
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
@@ -21,7 +53,7 @@ export async function POST(req: NextRequest) {
   // Email 1 — internal notification to UUPL
   const internalHtml = `
     <div style="font-family:sans-serif;max-width:600px;color:#1a1a2e">
-      <h2 style="color:#d6293e;margin-bottom:4px">New quote request — UUPL</h2>
+      <h2 style="color:#d6293e;margin-bottom:4px">New website enquiry — UUPL</h2>
       <p style="color:#888;font-size:13px;margin-top:0">Received via utsedha.com contact form</p>
       <table style="width:100%;border-collapse:collapse;margin-top:16px">
         <tr>
@@ -33,6 +65,14 @@ export async function POST(req: NextRequest) {
           <td style="padding:10px 14px;border-bottom:1px solid #e0e4ef;font-size:14px">
             <a href="mailto:${email}" style="color:#d6293e">${email}</a>
           </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;background:#f4f6fb;font-weight:600;font-size:14px">Phone</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #e0e4ef;font-size:14px">${phone || "—"}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px;background:#f4f6fb;font-weight:600;font-size:14px">Role</td>
+          <td style="padding:10px 14px;border-bottom:1px solid #e0e4ef;font-size:14px">${role || "—"}</td>
         </tr>
         <tr>
           <td style="padding:10px 14px;background:#f4f6fb;font-weight:600;font-size:14px">Company</td>
@@ -60,12 +100,12 @@ export async function POST(req: NextRequest) {
         <p style="color:#7c89a3;font-size:11px;margin:4px 0 0;letter-spacing:2px;text-transform:uppercase">High-Rise Facade Painting</p>
       </div>
       <div style="background:#ffffff;padding:28px;border:1px solid #e0e4ef;border-top:none;border-radius:0 0 4px 4px">
-        <h2 style="color:#1a1a2e;font-size:20px;margin:0 0 8px">Thanks, ${name} — we got your request.</h2>
+        <h2 style="color:#1a1a2e;font-size:20px;margin:0 0 8px">Thanks, ${name} — we got your enquiry.</h2>
         <p style="color:#4a5568;font-size:15px;line-height:1.6;margin:0 0 20px">
-          We've received your quote request and will get back to you within one business day.
+          We've received your enquiry and will get back to you within one business day.
         </p>
         <div style="background:#f4f6fb;border-left:3px solid #d6293e;padding:14px 16px;border-radius:0 4px 4px 0;margin-bottom:24px">
-          <p style="margin:0;font-size:13px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:1px">Your request summary</p>
+          <p style="margin:0;font-size:13px;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:1px">Your enquiry summary</p>
           <table style="width:100%;border-collapse:collapse;margin-top:10px">
             <tr>
               <td style="font-size:13px;color:#888;padding:3px 0;width:110px">Project type</td>
@@ -106,8 +146,8 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         sender: { name: "UUPL Website", email: "info@utsedha.com" },
         to: [{ email: "info@utsedha.com", name: "Utsedha Unmanned" }],
-        replyTo: { name, email },
-        subject: `Quote request — ${projectType} — ${company || name}`,
+        replyTo: { name: rawName, email: rawEmail },
+        subject: `Website enquiry — ${field("role", 100) || "Unknown"} — ${field("company", 200) || rawName}`,
         htmlContent: internalHtml,
       }),
     }),
@@ -120,8 +160,8 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         sender: { name: "Utsedha Unmanned", email: "info@utsedha.com" },
-        to: [{ email, name }],
-        subject: "We received your quote request — Utsedha Unmanned",
+        to: [{ email: rawEmail, name: rawName }],
+        subject: "We received your enquiry — Utsedha Unmanned",
         htmlContent: confirmationHtml,
       }),
     }),

@@ -3,14 +3,15 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, MessageCircle } from "lucide-react";
 import { gsap, prefersReducedMotion, registerGsap } from "@/lib/gsap";
 import { siteImages } from "@/lib/data/images";
+import { whatsappLink } from "@/lib/data/specs";
 
 const highlights = [
-  "No scaffolding or rope crews",
-  "Continuous facade coverage",
-  "Managed end-to-end service",
+  "No scaffolding or rope crews on the elevation",
+  "Tethered drone — continuous power and paint",
+  "Managed painting service, not equipment sales",
 ];
 
 export function Hero() {
@@ -54,15 +55,21 @@ export function Hero() {
     >
       <div className="relative z-[1] mx-auto grid w-full max-w-6xl flex-1 items-center gap-12 px-5 pb-16 pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-10">
         <div className="hero-copy">
-          <span className="section-label">High-rise facade painting</span>
-          <h1 className="mt-6 font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight text-fog-white md:text-[3.5rem] lg:text-[4.25rem]">
-            Facades painted in{" "}
-            <span className="text-signal-red">hours</span>, not weeks.
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="section-label">Drone facade painting</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-fog-white">
+              <GraduationCap size={14} className="text-signal-red" aria-hidden />
+              Incubated at IIT Ropar
+            </span>
+          </div>
+          <h1 className="mt-6 font-display text-[2.6rem] font-bold leading-[1.05] tracking-tight text-fog-white md:text-[3.5rem] lg:text-[4rem]">
+            High-rise painting,{" "}
+            <span className="text-signal-red">without scaffolding</span>.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-steel">
-            UUPL paints high-rise buildings without scaffolding or rope crews on
-            the elevation. Safer sites, faster turnaround, less disruption — you
-            buy the painting service, we handle the rest.
+            Utsedha is building a tethered painting drone that paints building
+            exteriors with no scaffolding and no workers hanging at height.
+            We&apos;re now selecting pilot buildings across India.
           </p>
 
           <ul className="mt-8 space-y-3">
@@ -76,12 +83,18 @@ export function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <Link href="/contact" className="btn-primary gap-2">
-              Request a quote
+              Apply for a pilot
               <ArrowRight size={16} aria-hidden />
             </Link>
-            <Link href="/service" className="btn-secondary">
-              See the service
-            </Link>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary gap-2"
+            >
+              <MessageCircle size={16} aria-hidden />
+              WhatsApp us
+            </a>
           </div>
         </div>
 

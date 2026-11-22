@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Roadmap",
   description:
     "UUPL capability roadmap — expanding the buildings and elevations we can paint.",
+  alternates: { canonical: "/roadmap" },
 };
 
 export default function RoadmapPage() {

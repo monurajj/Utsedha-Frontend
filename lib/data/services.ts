@@ -1,4 +1,4 @@
-export type ServiceStatus = "ACTIVE" | "IN R&D" | "TBD";
+export type ServiceStatus = "ACTIVE" | "PILOT" | "IN R&D" | "TBD";
 
 export type Service = {
   id: string;
@@ -16,41 +16,41 @@ export const services: Service[] = [
   {
     id: "facade-painting",
     name: "High-Rise Facade Painting",
-    status: "IN R&D",
+    status: "PILOT",
     headline:
-      "Facades painted in hours, not weeks — no scaffolding, no fall risk.",
+      "Exterior painting for tall buildings — without scaffolding or rope crews on the elevation.",
     description:
-      "We paint high-rise building exteriors end-to-end. You hire the painting outcome — not equipment. Scaffolding, rope access, and long site shutdowns come off the critical path.",
+      "We paint high-rise building exteriors using our in-house tethered painting drone. You hire the painting outcome — not equipment. We are now selecting pilot buildings to prove time, cost, and finish quality on real sites.",
     outcomes: [
       { label: "Approach", value: "No scaffolding" },
-      { label: "Coverage", value: "Continuous" },
-      { label: "Focus", value: "High-rise facades" },
+      { label: "Power", value: "Tethered, continuous" },
+      { label: "Stage", value: "Pilot projects" },
     ],
     methodNotes: [
+      "Site assessment and painting plan for your building",
       "Crew and equipment arrive as a managed painting package",
-      "Continuous aerial coverage — no mid-job power stoppages",
-      "Safer elevations without rope-access teams on the face",
+      "Measured results — time, paint used, and finish — shared with you",
     ],
     benefits: [
       {
         title: "No scaffolding, no fall risk",
         detail:
-          "No rope-access or scaffold crews on the elevation — safer sites, fewer permits.",
+          "No rope-access or scaffold crews working on the elevation — safer sites, fewer permits.",
       },
       {
-        title: "Paint time cut by [X]%",
+        title: "Results measured, not promised",
         detail:
-          "Vs. traditional scaffold/rope-access painting — validate before publishing.",
+          "Every pilot is benchmarked against conventional scaffold/rope-access painting on time and cost.",
       },
       {
         title: "Less site disruption",
         detail:
-          "Keep the building running while the facade gets done — without weeks of scaffold build-out.",
+          "No weeks of scaffold build-out and teardown around an occupied building.",
       },
       {
-        title: "Built for elevations scaffolding can't do safely",
+        title: "Built for hard-to-reach elevations",
         detail:
-          "High-rise and hard-to-reach facades without shutting the site down for weeks.",
+          "Tall faces and tight sites where scaffolding is slow, costly, or unsafe.",
       },
     ],
   },

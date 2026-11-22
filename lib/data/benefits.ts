@@ -5,48 +5,52 @@ export type Benefit = {
   proof: string;
 };
 
-/** Buyer-facing reasons to choose UUPL — benefit first, technical receipt second. */
+/**
+ * Buyer-facing reasons to choose UUPL — benefit first, technical receipt second.
+ * We are at prototype/pilot stage: describe what the system is designed to do,
+ * don't quote numbers until they're measured on real buildings.
+ */
 export const whyChooseUs: Benefit[] = [
   {
     id: "time",
-    title: "Time saving",
+    title: "Faster turnaround",
     detail:
-      "Facades painted in hours, not weeks. No scaffold build-out, no rope-access staging, no multi-day teardown.",
-    proof: "Faster turnaround vs. conventional methods",
+      "No scaffold build-out, no rope-access staging, no multi-day teardown — the slowest parts of facade painting come off the schedule.",
+    proof: "Skip scaffold setup & teardown",
   },
   {
     id: "cost",
     title: "Lower project cost",
     detail:
-      "Cut the spend tied to scaffolding, permits, and long crew days on the elevation — without cutting finish quality.",
-    proof: "Less logistics overhead on every job",
+      "Designed to cut the spend tied to scaffolding rental, permits, and long crew days at height — without cutting finish quality.",
+    proof: "Less logistics overhead",
   },
   {
     id: "precision",
-    title: "More precision",
+    title: "Even, consistent finish",
     detail:
-      "Controlled aerial coverage reaches hard-to-access panels evenly — consistent finish across the elevation.",
-    proof: "Repeatable spray pathing on the facade",
+      "Controlled spray paths reach hard-to-access panels evenly for a consistent finish across the elevation.",
+    proof: "Repeatable spray pathing",
   },
   {
     id: "safety",
     title: "Safer sites",
     detail:
-      "No rope crews or scaffold teams working at height on the face. Fall risk and site congestion drop with them.",
-    proof: "No scaffolding, no fall risk",
+      "No painters hanging on ropes or working on scaffolds at height. Fall risk and site congestion drop with them.",
+    proof: "No workers at height on the face",
   },
   {
     id: "disruption",
     title: "Less downtime",
     detail:
-      "Keep the building operating while work continues. Continuous coverage means fewer mid-job stoppages.",
-    proof: "Runs as long as the job needs",
+      "Tethered ground power means the drone isn't limited by battery swaps, and residents or tenants keep using the building.",
+    proof: "Tethered, continuous power",
   },
   {
     id: "access",
     title: "Hard elevations, handled",
     detail:
-      "Built for the jobs scaffolding struggles with — tall faces, tight sites, and access that rope teams find risky.",
-    proof: "High-rise ready painting service",
+      "Built for the jobs scaffolding struggles with — tall faces, tight plots, and access that rope teams find risky.",
+    proof: "Designed for high-rise work",
   },
 ];

@@ -1,5 +1,6 @@
 import { MediaFrame } from "@/components/MediaFrame";
 import { siteImages } from "@/lib/data/images";
+import { contact } from "@/lib/data/specs";
 
 type AboutSectionProps = {
   showIntro?: boolean;
@@ -29,8 +30,10 @@ export function AboutSection({ showIntro = true }: AboutSectionProps) {
               <span className="text-fog-white">
                 Utsedha Unmanned Private Limited
               </span>{" "}
-              is a deep-tech UAV startup developing a heavy-lift industrial drone
-              for aerial painting and infrastructure maintenance.
+              is a deep-tech UAV startup from Himachal Pradesh, incubated at{" "}
+              <span className="text-fog-white">{contact.incubator}</span>,
+              developing a heavy-lift industrial drone for aerial painting and
+              infrastructure maintenance.
             </p>
             <p>
               Our initial focus is a specialised UAV capable of carrying an
@@ -50,6 +53,33 @@ export function AboutSection({ showIntro = true }: AboutSectionProps) {
             <p className="font-mono text-sm uppercase tracking-[0.12em] text-signal-red">
               Deep-tech UAV. Industrial-grade payload. Built for the hard jobs.
             </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <div className="card-modern p-6">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-steel">
+                Founder
+              </p>
+              <p className="mt-2 font-display text-lg font-semibold text-fog-white">
+                {contact.founder}
+              </p>
+            </div>
+            <div className="card-modern p-6">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-steel">
+                Team
+              </p>
+              <p className="mt-2 font-display text-lg font-semibold text-fog-white">
+                {contact.team.join(" · ")}
+              </p>
+            </div>
+            <div className="card-modern p-6 sm:col-span-2">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-steel">
+                Incubation
+              </p>
+              <p className="mt-2 font-display text-lg font-semibold text-fog-white">
+                {contact.incubator}
+              </p>
+            </div>
           </div>
         </div>
 

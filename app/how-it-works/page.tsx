@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How it works",
   description:
     "From site assessment to painted facade — how UUPL delivers high-rise painting without scaffolding.",
+  alternates: { canonical: "/how-it-works" },
 };
 
 export default function HowItWorksPage() {

@@ -43,7 +43,7 @@ export function Footer() {
             </li>
           </ul>
           <Link href="/contact" className="btn-primary mt-7 !px-5 !py-2.5 !text-sm">
-            Request a quote
+            Apply for a pilot
           </Link>
         </div>
 
@@ -79,7 +79,9 @@ export function Footer() {
             High-rise facade painting without scaffolding or rope crews on the
             elevation. We paint buildings — we don&apos;t sell drones.
           </p>
-          <p className="mt-4 text-xs text-muted-steel/80">{contact.registration}</p>
+          <p className="mt-4 text-xs font-medium text-fog-white">
+            Incubated at {contact.incubator}
+          </p>
         </div>
 
         <div className="min-w-0 overflow-visible">
