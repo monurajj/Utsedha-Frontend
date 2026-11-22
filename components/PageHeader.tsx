@@ -34,7 +34,7 @@ export function CtaBand({
   title,
   body,
   href = "/contact",
-  label = "Request a quote",
+  label = "Apply for a pilot",
 }: CtaBandProps) {
   return (
     <section className="site-section px-5 py-16 md:px-8 md:py-24">

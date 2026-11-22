@@ -1,18 +1,25 @@
 # UUPL Website
 
-Marketing site for **Utsedha Unmanned Private Limited** — high-rise facade painting services delivered with continuous-power tethered systems engineered in-house.
+Marketing site for **Utsedha Unmanned Private Limited** (incubated at IIT Ropar) — high-rise facade painting delivered with an in-house tethered painting drone.
 
-**Positioning:** UUPL sells the painting service, not drones.
+**Positioning:** UUPL sells the painting service, not drones. Current stage: prototype / pilot buildings — keep copy honest and don't publish performance numbers until they're measured on real sites.
 
 ## Stack
 
 - Next.js (App Router) + TypeScript
 - Tailwind CSS v4
-- GSAP + ScrollTrigger
-- Lenis smooth scroll
+- GSAP + ScrollTrigger, Lenis smooth scroll
 - lucide-react
 
-Frontend-only. All content lives in `/lib/data`. Contact form builds a `mailto:` draft — no backend.
+All content lives in `/lib/data` (services, benefits, audiences, FAQ, roadmap, contact details).
+
+## Contact form
+
+`/api/contact` sends two emails through Brevo (internal notification + confirmation to the visitor).
+
+- Set `BREVO_API_KEY` in `.env.local` locally and in the hosting provider's env vars (redeploy after changes).
+- The sender `info@utsedha.com` must be a verified sender in Brevo, with the domain authenticated.
+- Brevo IP blocking must be disabled — serverless functions don't have fixed IPs.
 
 ## Develop
 
@@ -21,12 +28,8 @@ npm install
 npm run dev
 ```
 
-## Build (static export)
+## Build
 
 ```bash
-npm run build
+npm run build && npm start
 ```
-
-Output lands in `/out`.
-# Utsedha-Frontend
-# UUPL

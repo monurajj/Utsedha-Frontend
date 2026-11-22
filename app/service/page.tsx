@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Service",
   description:
     "High-rise facade painting without scaffolding or rope crews on the elevation.",
+  alternates: { canonical: "/service" },
 };
 
 export default function ServicePage() {

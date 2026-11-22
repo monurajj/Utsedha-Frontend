@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Request a quote for high-rise facade painting from Utsedha Unmanned.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

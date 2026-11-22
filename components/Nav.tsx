@@ -71,7 +71,7 @@ export function Nav() {
           })}
           <li className="ml-2">
             <Link href="/contact" className="btn-primary !px-5 !py-2.5 !text-sm">
-              Request a quote
+              Apply for a pilot
             </Link>
           </li>
         </ul>
@@ -109,7 +109,7 @@ export function Nav() {
             })}
             <li className="pt-3">
               <Link href="/contact" className="btn-primary w-full">
-                Request a quote
+                Apply for a pilot
               </Link>
             </li>
           </ul>

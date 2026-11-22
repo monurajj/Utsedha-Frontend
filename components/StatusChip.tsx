@@ -12,6 +12,12 @@ const styles: Record<
     dot: "bg-telemetry-cyan status-pulse",
     filled: true,
   },
+  PILOT: {
+    label: "PILOT SITES OPEN",
+    className: "border-signal-red/40 text-signal-red bg-signal-red/10",
+    dot: "bg-signal-red status-pulse",
+    filled: true,
+  },
   "IN R&D": {
     label: "STATUS: IN R&D",
     className: "border-warning-amber/40 text-warning-amber bg-warning-amber/10",

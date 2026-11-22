@@ -1,8 +1,8 @@
-import { ShieldOff, Percent, HardHat, Building2 } from "lucide-react";
+import { ShieldOff, ClipboardCheck, HardHat, Building2 } from "lucide-react";
 import { StatusChip } from "@/components/StatusChip";
 import type { Service } from "@/lib/data/services";
 
-const benefitIcons = [ShieldOff, Percent, HardHat, Building2];
+const benefitIcons = [ShieldOff, ClipboardCheck, HardHat, Building2];
 
 type ServiceCardProps = {
   service: Service;

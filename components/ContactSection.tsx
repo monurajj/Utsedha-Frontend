@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { Download, ShieldOff, Clock3, HardHat } from "lucide-react";
-import { contact } from "@/lib/data/specs";
+import { FormEvent, useEffect, useState } from "react";
+import { MessageCircle, ShieldOff, Clock3, HardHat } from "lucide-react";
+import { contact, whatsappLink } from "@/lib/data/specs";
+import { roles } from "@/lib/data/audiences";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -24,6 +25,8 @@ const benefits = [
 type FormState = {
   name: string;
   email: string;
+  phone: string;
+  role: string;
   company: string;
   projectType: string;
   message: string;
@@ -32,6 +35,8 @@ type FormState = {
 const initial: FormState = {
   name: "",
   email: "",
+  phone: "",
+  role: roles[0],
   company: "",
   projectType: "Commercial high-rise",
   message: "",
@@ -45,6 +50,14 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
   const [form, setForm] = useState<FormState>(initial);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  // Pre-select the role when arriving from a "Who it's for" card (/contact?role=…).
+  useEffect(() => {
+    const role = new URLSearchParams(window.location.search).get("role");
+    if (role && (roles as readonly string[]).includes(role)) {
+      setForm((f) => ({ ...f, role }));
+    }
+  }, []);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -124,15 +137,13 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 {contact.phone}
               </a>
               <a
-                href="#"
-                className="mt-6 inline-flex items-center gap-2 border-b border-slate-300 pb-1 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-muted-steel transition-colors hover:border-signal-red hover:text-signal-red"
-                onClick={(e) => e.preventDefault()}
-                aria-disabled
-                title="Service overview PDF coming soon"
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="!mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
               >
-                <Download size={14} aria-hidden />
-                Download the service overview
-                <span className="text-warning-amber">(soon)</span>
+                <MessageCircle size={16} aria-hidden />
+                Chat on WhatsApp
               </a>
             </div>
 
@@ -205,7 +216,41 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block text-sm">
                     <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
-                      Company
+                      Phone / WhatsApp
+                    </span>
+                    <input
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      placeholder="+91"
+                      value={form.phone}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, phone: e.target.value }))
+                      }
+                      className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red placeholder:text-muted-steel/50"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                      I am a
+                    </span>
+                    <select
+                      value={form.role}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, role: e.target.value }))
+                      }
+                      className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
+                    >
+                      {roles.map((r) => (
+                        <option key={r}>{r}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block text-sm">
+                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-steel">
+                      Company / society
                     </span>
                     <input
                       value={form.company}
@@ -229,9 +274,12 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                     className="mt-2 w-full rounded-sm border border-slate-300 bg-white px-3 py-2.5 text-fog-white outline-none transition-colors focus:border-signal-red"
                   >
                     <option>Commercial high-rise</option>
-                    <option>Residential tower</option>
+                    <option>Residential tower / society</option>
+                    <option>Hotel / hospital / institution</option>
+                    <option>Government / public building</option>
                     <option>Industrial / campus</option>
-                    <option>Other facade work</option>
+                    <option>Not a building project (investor / partner)</option>
+                    <option>Other</option>
                   </select>
                 </label>
 
@@ -262,7 +310,7 @@ export function ContactSection({ showIntro = true }: ContactSectionProps) {
                   disabled={status === "sending"}
                   className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
-                  {status === "sending" ? "Sending…" : "Request a quote"}
+                  {status === "sending" ? "Sending…" : "Send enquiry"}
                 </button>
               </form>
             )}

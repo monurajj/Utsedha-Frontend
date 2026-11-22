@@ -4,6 +4,8 @@ import { HomeTeasers } from "@/components/HomeTeasers";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { ImageGallery } from "@/components/ImageGallery";
 import { CtaBand } from "@/components/PageHeader";
+import { AudienceSection } from "@/components/AudienceSection";
+import { FaqSection } from "@/components/FaqSection";
 
 export default function HomePage() {
   return (
@@ -11,11 +13,14 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <BenefitsSection />
-      <HomeTeasers />
+      <AudienceSection />
       <ImageGallery />
+      <HomeTeasers />
+      <FaqSection />
       <CtaBand
-        title="Ready to paint your facade?"
-        body="Tell us about your building and timeline — we'll come back with a clear next step."
+        title="Have a building that needs painting?"
+        body="We're selecting a small number of pilot buildings. Tell us about yours — pilot partners get priority scheduling and pilot pricing."
+        label="Apply for a pilot"
       />
     </>
   );
